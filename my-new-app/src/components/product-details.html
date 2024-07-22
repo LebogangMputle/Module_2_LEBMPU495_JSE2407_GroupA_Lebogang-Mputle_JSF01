@@ -1,0 +1,29 @@
+<!-- product-details.html -->
+<div x-show="selectedProduct" class="product-details p-4 bg-white shadow rounded">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold" x-text="selectedProduct.title"></h2>
+        <button @click="selectedProduct = null" class="text-blue-500">Back to Products</button>
+    </div>
+    <div class="flex flex-col md:flex-row">
+        <img :src="selectedProduct.image" :alt="selectedProduct.title" class="w-full md:w-1/2 h-auto object-contain mb-4 md:mb-0">
+        <div class="md:ml-4">
+            <p class="text-lg text-gray-500 mb-2" x-text="selectedProduct.category"></p>
+            <p class="text-blue-500 font-bold text-xl mb-2" x-text="'$' + selectedProduct.price.toFixed(2)"></p>
+            <div x-data="{ rating: selectedProduct.rating.rate }">
+                <div class="flex items-center mb-2">
+                    <template x-for="star in 5" :key="star">
+                        <svg :class="star <= rating ? 'text-yellow-500' : 'text-gray-300'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049.999a1 1 0 011.902 0l2.462 5.004 5.511.8a1 1 0 01.554 1.706l-3.987 3.906.941 5.493a1 1 0 01-1.45 1.053L10 15.327l-4.939 2.596a1 1 0 01-1.45-1.053l.94-5.493-3.986-3.906a1 1 0 01.554-1.706l5.51-.8L9.05 1z"></path>
+                        </svg>
+                    </template>
+                    <span class="text-gray-600 text-sm ml-2" x-text="selectedProduct.rating.rate"></span>
+                    <span class="text-gray-600 text-sm ml-1">(</span>
+                    <span class="text-gray-600 text-sm" x-text="selectedProduct.rating.count"></span>
+                    <span class="text-gray-600 text-sm">)</span>
+                </div>
+            </div>
+            <p class="text-gray-700 mb-4" x-text="selectedProduct.description"></p>
+            <button @click="addToCart(selectedProduct)" class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+        </div>
+    </div>
+</div>
